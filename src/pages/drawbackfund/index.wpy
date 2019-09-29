@@ -1,0 +1,362 @@
+<style lang="less">
+page {
+  height: 100%;
+}
+.Drawbackfund {
+  height: 100%;
+  padding: 30rpx;
+  box-sizing: border-box;
+  .title {
+    font: 26rpx/26rpx '';
+    padding-left: 26rpx;
+  }
+  .code {
+    padding: 19rpx 0 0;
+    .codelist {
+      background-color: #fdfaf1;
+      border-radius: 8rpx;
+      border: solid 1rpx #eed8b8;
+      padding: 22rpx;
+      display: flex;
+      margin-bottom: 30rpx;
+      justify-content: space-between;
+      .codelist-l {
+        display: flex;
+        .codetxt {
+          margin-right: 40rpx;
+          color: #999;
+          font: 26rpx/40rpx '';
+        }
+        .codenum {
+          font: 26rpx/40rpx '';
+        }
+      }
+      .codelist-r {
+        .codestatus {
+          width: 34rpx;
+          height: 34rpx;
+          border: 2rpx solid #ccc;
+          box-sizing: border-box;
+          border-radius: 8rpx;
+        }
+        .codeimg {
+          width: 40rpx;
+          height: 40rpx;
+          border-radius: 8rpx;
+          image {
+            width: 100%;
+            height: 100%;
+            border-radius: 8rpx;
+          }
+        }
+      }
+    }
+  }
+  .money {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    .mustknowlist {
+      box-sizing: border-box;
+      border-bottom: 1rpx solid #efefef;
+      &:nth-last-child(1) {
+        border: 0;
+      }
+      display: flex;
+      font: 26rpx/26rpx '';
+      padding: 20rpx 30rpx;
+      .mustknowlist-l {
+        width: 136rpx;
+        margin-right: 20rpx;
+      }
+      .mustknowlist-r {
+        width: 400rpx;
+        flex: 1;
+        word-wrap: break-word;
+        .mustknowlist-rt {
+          font: 26rpx/26rpx '';
+          color: #999;
+          margin-bottom: 16rpx;
+        }
+        .mustknowlist-rb {
+          font: 22rpx/22rpx '';
+          color: #c2914b;
+        }
+      }
+    }
+  }
+  .drawbacktitle {
+    font: 26rpx/26rpx '';
+    color: #c2914b;
+    margin: 41rpx auto 20rpx;
+    padding-left: 26rpx;
+  }
+  .reasonbody {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    .mustknowlist {
+      height: 80rpx;
+      box-sizing: border-box;
+      border-bottom: 1rpx solid #efefef;
+      &:nth-last-child(1) {
+        border: 0;
+      }
+      display: flex;
+      justify-content: space-between;
+      font: 26rpx/40rpx '';
+      padding: 20rpx 30rpx;
+      .mustknowlist-r {
+        .status {
+          width: 34rpx;
+          height: 34rpx;
+          border: 2rpx solid #ccc;
+          border-radius: 8rpx;
+        }
+        .img {
+          width: 40rpx;
+          height: 40rpx;
+          border-radius: 8rpx;
+          image {
+            width: 100%;
+            height: 100%;
+            border-radius: 8rpx;
+          }
+        }
+      }
+    }
+  }
+  .sub {
+    width: 630rpx;
+    height: 64rpx;
+    background: #eee;
+    color: #999;
+    border-radius: 32rpx;
+    text-align: center;
+    font: 30rpx/64rpx '';
+    margin: 38rpx auto 0;
+    &.active {
+      background-image: linear-gradient(30deg, #c2914b 0%, #ebb870 100%),
+        linear-gradient(#c2914b, #c2914b);
+      background-blend-mode: normal, normal;
+      color: #fff;
+    }
+  }
+}
+</style>
+<template>
+  <view class="Drawbackfund">
+    <view class="title">订单券码</view>
+    <view class="code">
+      <repeat for="{{codelist}}" key="index" index="index" item="item">
+          <view class="codelist" wx:if="{{item.isActive==0?true:true}}" @tap="selectcode({{item.verifyCode}},{{item.select}},{{index}})">
+            <view class="codelist-l">
+              <view class="codetxt">券码：</view>
+              <view class="codenum">{{item.verifyCode?item.verifyCode:""}}</view>
+            </view>
+            <view class="codelist-r">
+              <view class="codestatus" wx:if="{{item.select}}">
+              </view>
+              <view class="codeimg" wx:else><image src="../../img/choosedss.png"/></view>
+            </view>
+          </view>
+        </repeat> 
+    </view>
+    <view class="money">
+      <view class="mustknowlist">
+        <view class="mustknowlist-l">退款金额：</view>
+        <view class="mustknowlist-r">¥{{money?money:0}}</view>
+      </view>
+      <view class="mustknowlist">
+        <view class="mustknowlist-l">退款方式：</view>
+        <view class="mustknowlist-r">
+          <view class="mustknowlist-rt">原路退回</view>
+          <view class="mustknowlist-rb">(1-7个工作日内退款到原支付方)</view>
+        </view>
+      </view>
+    </view>
+    <view class="drawbacktitle">退款原因(至少选择一项)</view>
+    <view class="reasonbody">
+      <repeat for="{{reasons}}" key="index" index="index" item="item">
+      <view class="mustknowlist" @tap="selectreason({{item.label}},{{item.select}},{{index}})">
+        <view class="mustknowlist-l">{{item.label}}</view>
+        <view class="mustknowlist-r">
+          <view class="status" wx:if="{{item.select}}">
+          </view>
+          <view class="img" wx:else><image src="../../img/choosedss.png"/></view>
+        </view>
+      </view>
+      </repeat> 
+    </view>
+    <view class="sub {{isshow?'active':''}}" @tap="subapply">申请退款</view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy';
+import apifunc from '@/api/index.js';
+export default class Drawbackfund extends wepy.page {
+  components = {};
+  data = {
+    isshow: false,
+    oHeight: '',
+    userid: '',
+    orderdetail: '',
+    mergeOrderNo: '',
+    codelist: [],
+    money: 0,
+    reasons: [
+      {
+        label: '预约不上',
+        select: true
+      },
+      {
+        label: '买错了/买多了',
+        select: true
+      },
+      {
+        label: '计划有变，没时间消费',
+        select: true
+      },
+      {
+        label: '后悔了，不想要了',
+        select: true
+      }
+    ],
+    selectreason: [],
+    lastcode: [],
+    bstop:0,
+  };
+  computed = {};
+  methods = {
+    subapply() {
+      var that = this;
+      if (this.isshow) {
+        if(this.bstop==0) {
+        this.bstop=1;
+        var codeStr = this.lastcode.join(',');
+        var reason = this.selectreason.join(',');
+        wx.showLoading({
+          title: '正在退款'
+        });
+        var data = {
+          orderNo: that.mergeOrderNo,
+          verifyCodes: codeStr,
+          operId: that.userid,
+          remarks: reason
+        };
+        apifunc
+          .getbackfund(`/tour/order/cancelCoupon`, 'get', data)
+          .then(function(res) {
+            console.log(res);
+            that.bstop=0;
+            wx.hideLoading();
+            if (res.meta.success) {
+              wx.redirectTo({
+                url: `/pages/backfundres/index?money=${that.money}`, 
+                success: function() {}, 
+                fail: function() {}, 
+                complete: function() {}
+              });
+              that.$apply();
+            }
+          });
+        }
+      } else {
+        wx.showToast({
+          title: '请填写完整数据',
+          icon: 'none',
+          duration: 500
+        });
+      }
+    },
+    selectreason(label, select, index) {
+      if (select == true) {
+        this.reasons[index].select = false;
+        this.selectreason.push(label);
+      } else if (select == false) {
+        this.reasons[index].select = true;
+        for (var i = 0; i <= this.selectreason.length - 1; i++) {
+          if (label == this.selectreason[i]) {
+            this.selectreason.splice(i, 1);
+          }
+        }
+      }
+      console.log(this.lastcode, this.selectreason);
+      if (this.lastcode.length != 0 && this.selectreason.length != 0) {
+        this.isshow = true;
+      } else {
+        this.isshow = false;
+      }
+    },
+    selectcode(code, select, index) {
+      if (select == true) {
+        this.codelist[index].select = false;
+        this.lastcode.push(code);
+        this.money = (
+          Number(this.money) + Number(this.codelist[index].goodsPrice)
+        ).toFixed(2);
+      } else if (select == false) {
+        this.codelist[index].select = true;
+        for (var i = 0; i <= this.lastcode.length - 1; i++) {
+          if (code == this.lastcode[i]) {
+            this.lastcode.splice(i, 1);
+          }
+        }
+        this.money = (
+          Number(this.money) - Number(this.codelist[index].goodsPrice)
+        ).toFixed(2);
+      }
+      console.log(this.lastcode, this.selectreason);
+      if (this.lastcode.length != 0 && this.selectreason.length != 0) {
+        this.isshow = true;
+      } else {
+        this.isshow = false;
+      }
+    }
+  };
+  getorderdetail(mergeOrderNo) {
+    var that = this;
+    apifunc
+      .getFoodDetail(`/tour/order/${mergeOrderNo}`, 'get', '')
+      .then(function(res) {
+        console.log(res);
+        if (res.meta.success) {
+          that.orderdetail = res.data;
+          if (res.data.entifies) {
+            that.codelist = res.data.entifies;
+            for (var i = 0; i <= that.codelist.length - 1; i++) {
+              that.codelist[i].select = true;
+              if (that.codelist[i].isActive == 1) {
+                that.codelist[i].isActivetxt = '已核销';
+              } else if (that.codelist[i].isActive == 2) {
+                that.codelist[i].isActivetxt = '已失效';
+              } else if (that.codelist[i].isActive == 3) {
+                that.codelist[i].isActivetxt = '已撤销';
+              }
+            }
+          }
+          that.$apply();
+        }
+      });
+  }
+  onShow() {
+    var that = this;
+  }
+  onLoad(options) {
+    var that = this;
+    var res = wx.getSystemInfoSync();
+    this.oHeight = res.windowHeight;
+    if (wx.getStorageSync('userid')) {
+      this.userid = wx.getStorageSync('userid');
+    }
+    if (options.mergeOrderNo) {
+      this.mergeOrderNo = options.mergeOrderNo;
+    } else {
+      this.mergeOrderNo = '';
+    }
+    this.selectreason = [];
+    this.lastcode = [];
+    this.codelist = [];
+    this.getorderdetail(that.mergeOrderNo);
+    this.$apply();
+  }
+}
+</script>

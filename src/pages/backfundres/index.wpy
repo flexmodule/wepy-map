@@ -1,0 +1,175 @@
+<style lang="less">
+page {
+  height: 100%;
+}
+.Backfundres {
+  height: 100%;
+  padding: 30rpx;
+  box-sizing: border-box;
+  .body {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    .mustknowlist {
+      box-sizing: border-box;
+      border-bottom: 1rpx solid #efefef;
+      &:nth-last-child(1) {
+        border: 0;
+      }
+      display: flex;
+      font: 26rpx/26rpx '';
+      padding: 20rpx 30rpx;
+      .mustknowlist-l {
+        margin-right: 20rpx;
+      }
+      .mustknowlist-r {
+        color: #999999;
+        flex: 1;
+        word-wrap: break-word;
+      }
+      &:nth-child(1) {
+        .mustknowlist-r {
+          color: #c2914b;
+        }
+      }
+    }
+  }
+  .flow {
+    padding: 38rpx 30rpx 30rpx 59rpx;
+    .title {
+      font: 30rpx/30rpx "";
+      color: #c2914b;
+    }
+    .flowmain {
+      padding-left: 71rpx;
+      position: relative;
+      z-index: 6;
+      &:before {
+        content: "";
+        width: 2rpx;
+        height: 120rpx;
+        background: #c2914b;
+        left: 19rpx;
+        top: 60rpx;
+        z-index: 4;
+        position: absolute;
+      }
+      .data {
+        padding: 30rpx 0 34rpx;
+        border-bottom: 1rpx solid #eee;
+        position: relative;
+        image {
+          width: 40rpx;
+          height: 40rpx;
+          position: absolute;
+          left: -71rpx;
+          z-index: 8;
+        }
+        &:nth-last-child(1) {
+          border: 0;
+        }
+        .data-t {
+          font: 26rpx/26rpx "";
+          margin-bottom: 19rpx;
+        }
+        .data-b {
+          font: 22rpx/26rpx "";
+          color: #999;
+        }
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="Backfundres">
+    <view class="body">
+      <view class="mustknowlist">
+        <view class="mustknowlist-l">退款金额：</view>
+        <view class="mustknowlist-r">¥{{money?money:0}}</view>
+      </view>
+      <view class="mustknowlist">
+        <view class="mustknowlist-l">退回账户：</view>
+        <view class="mustknowlist-r">微信支付账户</view>
+      </view>
+      <view class="mustknowlist">
+        <view class="mustknowlist-l">到账时间：</view>
+        <view class="mustknowlist-r">预计最晚三天到账</view>
+      </view>
+    </view>
+    <view class="flow">
+      <view class="title">退款流程</view>
+      <view class="flowmain">
+        <view class="data">
+          <image src="../../img/choosedss.png"/>
+          <view class="data-t">审核通过，待退款</view>
+          <view class="data-b">{{money}}元的退款申请成功，等待退款。</view>
+        </view>
+        <view class="data">
+          <image src="../../img/choosedss.png"/>
+          <view class="data-t">退款成功</view>
+          <view class="data-b">退款成功，共计{{money}}元，请注意查收您的微信账户。</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy';
+import apifunc from '@/api/index.js';
+export default class Backfundres extends wepy.page {
+  components = {};
+  data = {
+    oHeight: '',
+    userid: '',
+    orderdetail: '',
+    mergeOrderNo: '',
+    money: 0
+  };
+  computed = {};
+  methods = {};
+
+  getorderdetail(mergeOrderNo) {
+    var that = this;
+    apifunc
+      .getFoodDetail(`/tour/order/${mergeOrderNo}`, 'get', '')
+      .then(function(res) {
+        console.log(res);
+        if (res.meta.success) {
+          that.orderdetail = res.data;
+          if (res.data.entifies) {
+            that.codelist = res.data.entifies;
+            for (var i = 0; i <= that.codelist.length - 1; i++) {
+              if(that.codelist[i].isActive==3) {
+                that.money=(Number(that.money)+Number(that.codelist[i].goodsPrice)).toFixed(2);
+              }
+            }
+          }
+          that.$apply();
+        }
+      });
+  }
+  onShow() {
+    var that = this;
+  }
+  onLoad(options) {
+    var that = this;
+    var res = wx.getSystemInfoSync();
+    this.oHeight = res.windowHeight;
+    if (wx.getStorageSync('userid')) {
+      this.userid = wx.getStorageSync('userid');
+    }
+    if (options.mergeOrderNo) {
+      this.mergeOrderNo = options.mergeOrderNo;
+      this.getorderdetail(that.mergeOrderNo);
+    } else {
+      this.mergeOrderNo = '';
+    }
+    if(options.money||options.money==0) {
+      this.money=options.money
+    } else {
+      this.money=0
+    }
+    this.$apply();
+  }
+}
+</script>

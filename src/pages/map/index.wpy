@@ -1,0 +1,895 @@
+<style lang="less">
+page {
+  height: 100%;
+  overflow: hidden;
+}
+.map {
+  .tomap {
+    background: #fff;
+    map {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+    }
+  }
+  .map-t {
+    .titlebox {
+      white-space: nowrap;
+    }
+    .maptitle {
+      background: #fff;
+      overflow-x: auto;
+      height: 120rpx;
+      box-sizing: border-box;
+      overflow-y: hidden;
+      &:-webkit-scrollbar {
+        /*滚动条整体样式*/
+        height: 1rpx;
+      }
+      box-shadow: inset 0px -1px 0px 0px #efefef;
+      padding: 36rpx 40rpx 36rpx 0;
+      .total,
+      .food,
+      .scene,
+      .spa,
+      .hotel {
+        display: inline-block;
+        margin-left: 40rpx;
+        vertical-align: middle;
+        padding: 0 20rpx;
+        height: 48rpx;
+        border: 1rpx solid #999;
+        color: #999;
+        border-radius: 24rpx;
+        font: 26rpx/48rpx '';
+      }
+      .active {
+        background-image: linear-gradient(30deg, #c2914b 0%, #ebb870 100%),
+          linear-gradient(#ffffff, #ffffff);
+        background-blend-mode: normal, normal;
+        color: #fff;
+        border: 1rpx solid #ebb870;
+      }
+    }
+    .mapdetailbody {
+      height: 282rpx;
+      .mapdetailbox {
+        width: 100%;
+        height: 100%;
+        swiper {
+          width: 100%;
+          height: 100%;
+          swiper-item {
+            width: 100%;
+            height: 100%;
+            .mapdetail {
+              height: 282rpx;
+              box-sizing: border-box;
+              padding: 30rpx 30rpx 72rpx;
+              background: #fff;
+              display: flex;
+              position: relative;
+              .tothis {
+                display: flex;
+                align-items: center;
+                width: 122rpx;
+                height: 48rpx;
+                position: absolute;
+                bottom: 72rpx;
+                right: 30rpx;
+                background-image: linear-gradient(
+                    30deg,
+                    #c2914b 0%,
+                    #ebb870 100%
+                  ),
+                  linear-gradient(#c69a5d, #c69a5d);
+                background-blend-mode: normal, normal;
+                border-radius: 24rpx;
+                color: #fff;
+                .tothistxt {
+                  font: 22rpx/48rpx '';
+                  padding-left: 18rpx;
+                  margin-right: 10rpx;
+                }
+                .enter {
+                  width: 24rpx;
+                  height: 24rpx;
+                  font-size: 0;
+                  position: absolute;
+                  top: 0;
+                  bottom: 0;
+                  right: 15rpx;
+                  margin: auto;
+                  image {
+                    width: 100%;
+                    height: 100%;
+                  }
+                }
+              }
+              .collect {
+                position: absolute;
+                width: 70rpx;
+                text-align: center;
+                right: 60rpx;
+                top: 30rpx;
+                right: 30rpx;
+                font-size: 0;
+                image {
+                  width: 44rpx;
+                  height: 44rpx;
+                  margin-bottom: 10rpx;
+                }
+                .signtxt {
+                  font: 22rpx/22rpx '';
+                  color: #999;
+                }
+              }
+              .mapdetail-l {
+                width: 180rpx;
+                height: 180rpx;
+                margin-right: 21rpx;
+                position: relative;
+                border-radius: 8rpx;
+                .mainImg {
+                  width: 180rpx;
+                  height: 180rpx;
+                  border-radius: 8rpx;
+                  overflow: hidden;
+                  &:after {
+                    content: '';
+                    display: inline-block;
+                    width: 0;
+                    height: 100%;
+                    vertical-align: middle;
+                  }
+                  image {
+                    width: 150%;
+                    border-radius: 8rpx;
+                    vertical-align: middle;
+                  }
+                }
+                .shadow {
+                  position: absolute;
+                  bottom: 0;
+                  background: rgba(0, 0, 0, 0.5);
+                  height: 48rpx;
+                  width: 100%;
+                  display: flex;
+                  padding: 11rpx 0;
+                  box-sizing: border-box;
+                  border-radius: 0 0 8rpx 8rpx;
+                  .distance {
+                    position: absolute;
+                    display: flex;
+                    height: 26rpx;
+                    right: 34rpx;
+                    top: 11rpx;
+                  }
+                  .imgicon {
+                    width: 26rpx;
+                    height: 26rpx;
+                    margin: 0 10rpx 0 0;
+                  }
+                  .juli {
+                    font: 22rpx/26rpx '';
+                    color: #fff;
+                  }
+                }
+              }
+              .mapdetail-r {
+                flex: 0.6;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                .score {
+                  height: 25rpx;
+                  margin: 0 0 20rpx;
+                  position: relative;
+                  .scoreicon,
+                  .selectscoreicon {
+                    display: flex;
+                    image {
+                      width: 25rpx;
+                      height: 25rpx;
+                      margin-right: 13rpx;
+                    }
+                  }
+                  .selectscoreicon {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 6;
+                  }
+                }
+                .name {
+                  font: 30rpx/30rpx '';
+                  position: relative;
+                  max-height: 60rpx;
+                  color: #000;
+                  max-width: 294rpx;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2;
+                  overflow: hidden;
+                  /*&:after {
+            content: '...';
+            position: absolute;
+            bottom: 8rpx;
+            right: 0;
+            padding-left: 40rpx;
+          }*/
+                }
+                .price {
+                  font: 30rpx/30rpx '';
+                  color: #c2914b;
+                  margin-top: 20rpx;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .mapinfo {
+      background: #eee;
+      height: 96rpx;
+      font: 24rpx/64rpx '';
+      text-align: center;
+      color: #999;
+    }
+  }
+}
+</style>
+<template>
+  <view class="map">
+    <view class="tomap" style="height:{{mapheight}}">
+      <map id="map" longitude="{{currentlong?currentlong:''}}" latitude="{{currentlat?currentlat:''}}" scale="{{scalemap}}" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location></map>
+    </view>
+    <view class="map-t">
+      <view class="titlebox" wx:if="{{recmap}}">
+        <view class="maptitle">
+          <view class="total {{isshowNav==0?'active':''}}" @tap="switchNav(0)">全部</view>
+          <view class="food {{isshowNav==1?'active':''}}" @tap="switchNav(1)">美食</view>
+          <view class="spa {{isshowNav==3?'active':''}}" @tap="switchNav(3)">休闲娱乐</view>
+          <!-- <view class="scene {{isshowNav==2?'active':''}}" @tap="switchNav(2)">景点</view>
+          
+          <view class="hotel {{isshowNav==4?'active':''}}" @tap="switchNav(4)">购物</view> -->
+        </view>
+      </view>
+      <view class="mapdetailbody">
+          <view class="mapdetailbox">
+            <swiper indicator-dots="{{indicatorDots}}" skip-hidden-item-layout="true" circular="true" indicator-color="rgba(0,0,0,.5)" current="{{currentindex}}" bindchange="swiperchange" duration="{{duration}}">
+              <block wx:for="{{mapdetaildata}}" wx:key="{{item.id}}">
+                <swiper-item>
+                <view class="mapdetail" @tap="todetail({{item.id}})" style="width:{{mapdetailwidth}}px">
+                          <view class="mapdetail-l">
+                            <view class="mainImg">
+                              <image src="{{item.mainImg?item.mainImg:''}}" mode="widthFix"/>
+                            </view>
+                            <view class="shadow">
+                              <view class="distance">
+                                <image class="imgicon" src="../../img/distance.png"/>
+                                <view class="juli">{{item.distance?item.distance:''}}</view>
+                              </view>
+                            </view>
+                          </view>
+                          <view class="mapdetail-r">
+                            <view class="score">
+                              <view class="scoreicon">
+                                <repeat for="{{scoreData}}" key="index" index="index" item="item">
+                                  <image src="../../img/starLine.png"/>
+                                </repeat>
+                              </view>
+                              <view class="selectscoreicon">
+                                <repeat for="{{item.selectscoreData}}" key="index" index="index" item="item">
+                                  <image src="../../img/starLight.png"/>
+                                </repeat>
+                              </view>
+                            </view>
+                            <view class="name">{{item.name}}</view>
+                            <view class="price">人均:¥{{item.averagePrice}}</view>
+                          </view>
+                          <view class="tothis" catchtap="getmap({{item.latitude}},{{item.longitude}})">
+                            <view class="tothistxt">到这去</view>
+                            <view class="enter"><image src="../../img/enter.png"/></view>
+                          </view>
+                          <view class="collect" catchtap="collect({{item.id}},{{index}},{{item.signtxt}})">
+                            <image src="../../img/biu.png" wx:if="{{item.isFavorite==1?true:false}}"/>
+                            <image src="../../img/unBiu.png" wx:else/>
+                            <view class="signtxt">{{item.isFavorite==1?"已标记":"未标记"}}</view>
+                          </view>
+                        </view>
+                </swiper-item>
+              </block>
+            </swiper>
+            
+          </view>
+      </view>
+      <view class="mapinfo">点击地图标记，可切换卡片详情，点击卡片进入详情页～</view>
+    </view>
+  </view>
+</template>
+<script>
+	import mta from '../.././utils/mta_analysis.js' //腾讯移动统计sdk
+import wepy from 'wepy';
+import apifunc from '@/api/index.js';
+export default class Map extends wepy.page {
+  components = {};
+  data = {
+    scalemap: 15,
+    indicatorDots: true,
+    duration: 1000,
+    currentindex: 0,
+    oHeight: '',
+    mapheight: '',
+    mapdetailwidth: '',
+    isshowNav: 0,
+    id: '',
+    userid: '',
+    foodDetail: {},
+    scoreData: [1, 1, 1, 1, 1],
+    markers: [],
+    mapdetaildata: [],
+    longitude: '',
+    latitude: '',
+    currenttype: '',
+    currentcondition: '',
+    recmap: true,
+    mapkind: '',
+    currentlat: '',
+    currentlong: '',
+    currentrange: '',
+    swiperwidth: ''
+  };
+  computed = {};
+  methods = {
+    swiperchange(e) {
+      console.log(e);
+      this.currentindex = e.detail.current;
+      var that = this;
+      if (e.detail) {
+        this.scalemap = 15;
+        var index = e.detail.current;
+        that.currentlat = that.markers[index].latitude;
+        that.currentlong = that.markers[index].longitude;
+        for (var j = 0; j <= that.mapdetaildata.length - 1; j++) {
+          if (that.mapdetaildata[j].type == 1) {
+            that.markers[j].iconPath = '../../img/foodAddr.png';
+          } else if (that.mapdetaildata[j].type == 2) {
+            that.markers[j].iconPath = '../../img/fengAddr.png';
+          } else if (that.mapdetaildata[j].type == 3) {
+            that.markers[j].iconPath = '../../img/spaAddr.png';
+          }
+          if (j == index) {
+            if (that.mapdetaildata[j].type == 1) {
+              that.markers[j].iconPath = '../../img/foodAddrs.png';
+            } else if (that.mapdetaildata[j].type == 2) {
+              that.markers[j].iconPath = '../../img/fengAddrs.png';
+            } else if (that.mapdetaildata[j].type == 3) {
+              that.markers[j].iconPath = '../../img/spaAddrs.png';
+            }
+          }
+        }
+        that.$apply();
+      }
+    },
+    scroll(e) {
+      var that = this;
+      that.currentrange = e.detail.scrollLeft;
+      that.$apply();
+    },
+    todetail(id) {
+      wx.redirectTo({
+        url: `/pages/addressdetail/index?id=${id}`, //跳转页面的路径，可带参数 ？隔开，不同参数用 & 分隔；相对路径，不需要.wxml后缀
+        success: function() {}, //成功后的回调；
+        fail: function() {}, //失败后的回调；
+        complete: function() {} //结束后的回调(成功，失败都会执行)
+      });
+    },
+    getmap(lat, long) {
+      wx.openLocation({
+        latitude: lat,
+        longitude: long,
+        scale: 28,
+        success: function() {},
+        fail: function() {
+          wx.showToast({
+            title: '调起地图失败',
+            icon: 'none',
+            duration: 1000
+          });
+        }
+      });
+    },
+    switchNav(data) {
+      var that = this;
+      if (
+        that.id &&
+        that.latitude &&
+        that.longitude &&
+        that.userid &&
+        that.currenttype
+      ) {
+        var type;
+        if (that.currenttype == data) {
+          type = true;
+        } else {
+          type = false;
+        }
+        if (data == 1) {
+          that.currentindex = 0;
+          that.isshowNav = 1;
+          that.mapdetaildata = [];
+          that.getCollect(
+            that.userid,
+            1,
+            that.currentcondition,
+            type,
+            that.id,
+            that.latitude,
+            that.longitude
+          );
+        } else if (data == 2) {
+          that.currentindex = 0;
+          that.isshowNav = 2;
+          that.getCollect(
+            that.userid,
+            2,
+            that.currentcondition,
+            type,
+            that.id,
+            that.latitude,
+            that.longitude
+          );
+        } else if (data == 3) {
+          that.currentindex = 0;
+          that.isshowNav = 3;
+          that.mapdetaildata = [];
+          that.getCollect(
+            that.userid,
+            3,
+            that.currentcondition,
+            type,
+            that.id,
+            that.latitude,
+            that.longitude
+          );
+        } else if (data == 4) {
+          that.currentindex = 0;
+          that.isshowNav = 4;
+          that.getCollect(
+            that.userid,
+            4,
+            that.currentcondition,
+            type,
+            that.id,
+            that.latitude,
+            that.longitude
+          );
+        } else if (data == 0) {
+          that.isshowNav = 0;
+          that.currentindex = 0;
+          that.mapdetaildata = [];
+          that.getCollect(
+            that.userid,
+            '',
+            that.currentcondition,
+            type,
+            that.id,
+            that.latitude,
+            that.longitude
+          );
+        }
+      }
+      that.$apply();
+    },
+    collect(id, index, signtxt) {
+      console.log(id, index, signtxt);
+      var that = this;
+      if (this.userid) {
+        var data = {
+          userId: that.userid,
+          placeId: id
+        };
+        if (signtxt == '未标记') {
+          apifunc
+            .collectFood(`/tour/oversea/favorite/add`, 'get', data)
+            .then(function(res) {
+              if (res.meta.success) {
+                that.mapdetaildata[index].isFavorite = 1;
+                that.mapdetaildata[index].signtxt = '已标记';
+                wx.showToast({
+                  title: '收藏成功',
+                  icon: 'success',
+                  duration: 1000
+                });
+                that.$apply();
+              } else {
+                wx.showToast({
+                  title: '收藏失败',
+                  icon: 'none',
+                  duration: 1000
+                });
+              }
+            });
+        } else if (signtxt == '已标记') {
+          apifunc
+            .uncollectFood(`/tour/oversea/favorite/del`, 'get', data)
+            .then(function(res) {
+              if (res.meta.success) {
+                that.mapdetaildata[index].isFavorite = 0;
+                that.mapdetaildata[index].signtxt = '未标记';
+                wx.showToast({
+                  title: '取消收藏成功',
+                  icon: 'success',
+                  duration: 1000
+                });
+                that.$apply();
+              } else {
+                wx.showToast({
+                  title: '取消收藏失败',
+                  icon: 'none',
+                  duration: 1000
+                });
+              }
+            });
+        }
+      }
+    }
+  };
+  regionchange(e) {}
+  markertap(e) {
+    var that = this;
+    for (var i = 0; i <= that.mapdetaildata.length - 1; i++) {
+      if (that.mapdetaildata[i].id == e.markerId) {
+        that.currentindex = i;
+        that.$apply();
+        return;
+      }
+    }
+  }
+  getCollect(userId, type, num, currenttype, id, lat, long) {
+    //type是种类，num为1已标记，num为0未标记，currenttype是当前详情页的种类，为true
+    var that = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success: function(res) {
+        var data = {
+          userId: userId,
+          type: type,
+          currentLatitude: res.latitude,
+          currentLongitude: res.longitude
+        };
+        that.markers = [];
+        apifunc
+          .getcollect(`/tour/oversea/favorite/list`, 'get', data)
+          .then(function(res) {
+            that.mapdetaildata = res.list;
+            for (var i = 0; i <= that.mapdetaildata.length - 1; i++) {
+              that.mapdetaildata[i].isFavorite = 1;
+              that.mapdetaildata[i].signtxt = '已标记';
+              if (
+                that.mapdetaildata[i].score > 0 &&
+                that.mapdetaildata[i].score <= 2
+              ) {
+                that.mapdetaildata[i].selectscoreData = [1];
+              } else if (
+                that.mapdetaildata[i].score > 2 &&
+                that.mapdetaildata[i].score <= 4
+              ) {
+                that.mapdetaildata[i].selectscoreData = [1, 1];
+              } else if (
+                that.mapdetaildata[i].score > 4 &&
+                that.mapdetaildata[i].score <= 6
+              ) {
+                that.mapdetaildata[i].selectscoreData = [1, 1, 1];
+              } else if (
+                that.mapdetaildata[i].score > 6 &&
+                that.mapdetaildata[i].score <= 8
+              ) {
+                that.mapdetaildata[i].selectscoreData = [1, 1, 1, 1];
+              } else if (
+                that.mapdetaildata[i].score > 8 &&
+                that.mapdetaildata[i].score <= 10
+              ) {
+                that.mapdetaildata[i].selectscoreData = [1, 1, 1, 1, 1];
+              }
+              if (that.mapdetaildata[i].id == id) {
+                var temp = that.mapdetaildata[i];
+                var temp1 = that.mapdetaildata[0];
+                that.mapdetaildata[i] = temp1;
+                that.mapdetaildata[0] = temp;
+              }
+            }
+            for (var i = 0; i <= that.mapdetaildata.length - 1; i++) {
+              let value = {
+                iconPath: '../../img/foodAddr.png',
+                id: 0,
+                latitude: '',
+                longitude: '',
+                width: 32,
+                height: 42.5
+              };
+              if (that.mapdetaildata[i].type == 1) {
+                value.iconPath = '../../img/foodAddr.png';
+              } else if (that.mapdetaildata[i].type == 2) {
+                value.iconPath = '../../img/fengAddr.png';
+              } else if (that.mapdetaildata[i].type == 3) {
+                value.iconPath = '../../img/spaAddr.png';
+              }
+              if (that.mapdetaildata[i].id == id) {
+                if (that.mapdetaildata[i].type == 1) {
+                  value.iconPath = '../../img/foodAddrs.png';
+                } else if (that.mapdetaildata[i].type == 2) {
+                  value.iconPath = '../../img/fengAddrs.png';
+                } else if (that.mapdetaildata[i].type == 3) {
+                  value.iconPath = '../../img/spaAddrs.png';
+                }
+              }
+              if (
+                that.mapdetaildata[i].latitude &&
+                that.mapdetaildata[i].longitude &&
+                that.mapdetaildata[i].id
+              ) {
+                value.latitude = that.mapdetaildata[i].latitude;
+                value.longitude = that.mapdetaildata[i].longitude;
+                value.id = that.mapdetaildata[i].id;
+              }
+              that.markers.push(value);
+            }
+            // for (var j = 0; j<=that.markers.length - 1; j++) {
+            //   if (that.markers[j].id == id) {
+            //     var marktemp = that.markers[j];
+            //     var marktemp1 = that.markers[0];
+            //     that.markers[j] = marktemp;
+            //     that.markers[0] = marktemp1;
+            //     return;
+            //   }
+            // }
+            if (type != '') {
+              if (num == 0 && currenttype == true) {
+                //num为0未标记，currenttype为店家分类时，是否为当前分类
+                var uncoll = {
+                  iconPath: '../../img/foodAddr.png',
+                  id: id,
+                  latitude: lat,
+                  longitude: long,
+                  width: 32,
+                  height: 42.5
+                };
+                if (type == 1) {
+                  uncoll.iconPath = '../../img/foodAddrs.png';
+                } else if (type == 2) {
+                  uncoll.iconPath = '../../img/fengAddrs.png';
+                } else if (type == 3) {
+                  uncoll.iconPath = '../../img/spaAddrs.png';
+                }
+                that.markers.unshift(uncoll);
+                that.foodDetail.signtxt = '未标记';
+                that.mapdetaildata.unshift(that.foodDetail);
+              }
+            } else {
+              if (num == 0) {
+                var uncolls = {
+                  iconPath: '../../img/foodAddr.png',
+                  id: id,
+                  latitude: lat,
+                  longitude: long,
+                  width: 32,
+                  height: 42.5
+                };
+                if (currenttype == 1) {
+                  uncolls.iconPath = '../../img/foodAddrs.png';
+                } else if (currenttype == 2) {
+                  uncolls.iconPath = '../../img/fengAddrs.png';
+                } else if (currenttype == 3) {
+                  uncolls.iconPath = '../../img/spaAddrs.png';
+                }
+                that.markers.unshift(uncolls);
+                that.foodDetail.signtxt = '未标记';
+                that.mapdetaildata.unshift(that.foodDetail);
+              }
+            }
+            for (var m = 0; m <= that.mapdetaildata.length - 1; m++) {
+              if (that.mapdetaildata[m].distance >= 1000) {
+                that.mapdetaildata[m].distance =
+                  (that.mapdetaildata[m].distance / 1000).toFixed(1) + 'km';
+              } else {
+                that.mapdetaildata[m].distance =
+                  that.mapdetaildata[m].distance + 'm';
+              }
+            }
+            that.$apply();
+          });
+      }
+    });
+    console.log(userId, type, num, currenttype, id, lat, long);
+  }
+  getrec() {
+    var that = this;
+    if (that.mapkind) {
+      wx.getLocation({
+        type: 'wgs84',
+        success: function(res) {
+          var value = {
+            type: that.mapkind,
+            name: '',
+            classId: '',
+            isRecommend: '',
+            area: '',
+            pageNo: 1,
+            pageSize: -1,
+            currentLatitude: res.latitude,
+            currentLongitude: res.longitude
+          };
+          that.markers = [];
+          apifunc
+            .getRecFood('/tour/oversea/getPlaceList', 'get', value)
+            .then(function(res) {
+              if (res.meta.success) {
+                that.mapdetaildata = res.list;
+                if (that.mapdetaildata.length !== 0) {
+                  for (var i = 0; i <= that.mapdetaildata.length - 1; i++) {
+                    if (that.mapdetaildata[i].distance >= 1000) {
+                      that.mapdetaildata[i].distance =
+                        (that.mapdetaildata[i].distance / 1000).toFixed(1) +
+                        'km';
+                    } else {
+                      that.mapdetaildata[i].distance =
+                        that.mapdetaildata[i].distance + 'm';
+                    }
+                    if (
+                      that.mapdetaildata[i].score > 0 &&
+                      that.mapdetaildata[i].score <= 2
+                    ) {
+                      that.mapdetaildata[i].selectscoreData = [1];
+                    } else if (
+                      that.mapdetaildata[i].score > 2 &&
+                      that.mapdetaildata[i].score <= 4
+                    ) {
+                      that.mapdetaildata[i].selectscoreData = [1, 1];
+                    } else if (
+                      that.mapdetaildata[i].score > 4 &&
+                      that.mapdetaildata[i].score <= 6
+                    ) {
+                      that.mapdetaildata[i].selectscoreData = [1, 1, 1];
+                    } else if (
+                      that.mapdetaildata[i].score > 6 &&
+                      that.mapdetaildata[i].score <= 8
+                    ) {
+                      that.mapdetaildata[i].selectscoreData = [1, 1, 1, 1];
+                    } else if (
+                      that.mapdetaildata[i].score > 8 &&
+                      that.mapdetaildata[i].score <= 10
+                    ) {
+                      that.mapdetaildata[i].selectscoreData = [1, 1, 1, 1, 1];
+                    }
+                    var value = {
+                      iconPath: '../../img/foodAddr.png',
+                      id: 0,
+                      latitude: '',
+                      longitude: '',
+                      width: 32,
+                      height: 42.5
+                    };
+                    if (that.mapkind == 3) {
+                      value.iconPath = '../../img/spaAddr.png';
+                    }
+                    if (
+                      that.mapdetaildata[i].latitude &&
+                      that.mapdetaildata[i].longitude &&
+                      that.mapdetaildata[i].id
+                    ) {
+                      value.latitude = that.mapdetaildata[i].latitude;
+                      value.longitude = that.mapdetaildata[i].longitude;
+                      value.id = that.mapdetaildata[i].id;
+                    }
+                    that.markers.push(value);
+                  }
+                }
+                that.currentlat = that.mapdetaildata[0].latitude;
+                that.currentlong = that.mapdetaildata[0].longitude;
+                that.markers[0].iconPath = '../../img/foodAddrs.png';
+                if (that.mapkind == 3) {
+                  that.markers[0].iconPath = '../../img/spaAddrs.png';
+                }
+                that.$apply();
+              }
+            });
+        }
+      });
+    }
+  }
+  getDetail(userid, id, diff) {
+    //diff是为了区分第一次进入和点击地图得详情,diff为1,只有第一次进入时，在详情页里请求收藏接口，diff为0时，是点击图标的获取详情页
+    var that = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success: function(res) {
+        var data = {
+          placeId: id,
+          userId: userid,
+          currentLatitude: res.latitude,
+          currentLongitude: res.longitude
+        };
+        apifunc
+          .getFoodDetail(`/tour/oversea/getPlaceInfo`, 'get', data)
+          .then(function(res) {
+            if (res.meta.success) {
+              that.foodDetail = res.data;
+              if (diff == 1) {
+                that.currenttype = res.data.type;
+                if (that.foodDetail.latitude && that.foodDetail.longitude) {
+                  that.latitude = that.foodDetail.latitude;
+                  that.longitude = that.foodDetail.longitude;
+                  that.currentlat = that.foodDetail.latitude;
+                  that.currentlong = that.foodDetail.longitude;
+                }
+              }
+              if (res.data.isFavorite == '1') {
+                that.currentcondition = 1;
+                if (diff == 1) {
+                  that.getCollect(
+                    userid,
+                    '',
+                    1,
+                    res.data.type,
+                    res.data.id,
+                    '',
+                    ''
+                  );
+                }
+              } else if (res.data.isFavorite == '0') {
+                that.currentcondition = 0;
+                if (diff == 1) {
+                  that.getCollect(
+                    userid,
+                    '',
+                    0,
+                    res.data.type,
+                    res.data.id,
+                    res.data.latitude,
+                    res.data.longitude
+                  );
+                }
+              }
+              that.$apply();
+            }
+          });
+        that.$apply();
+      }
+    });
+  }
+  onShow() {}
+  onLoad(options) {
+	  mta.Page.init()
+    var that = this;
+    var res = wx.getSystemInfoSync();
+    var radio = res.windowWidth / 375;
+    this.oHeight = res.windowHeight + 'px';
+    this.mapdetailwidth = res.windowWidth;
+    this.currentindex = 0;
+    this.isshowNav = 0;
+    this.markers = [];
+    this.mapdetaildata = [];
+    this.mapkind = '';
+    if (options.id) {
+      this.id = options.id;
+    }
+    if (wx.getStorageSync('userid')) {
+      this.userid = wx.getStorageSync('userid');
+    }
+    if (options.mapkind) {
+      this.recmap = false;
+      this.mapkind = options.mapkind;
+      this.mapheight = res.windowHeight - 189 * radio + 'px';
+      this.getrec();
+    } else {
+      this.recmap = true;
+      this.mapheight = res.windowHeight - 249 * radio + 'px';
+      this.getDetail(that.userid, that.id, 1);
+    }
+    this.$apply();
+  }
+}
+</script>
